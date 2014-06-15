@@ -1,0 +1,34 @@
+import facebook 
+from pprint import pprint
+
+def get_friends_names(graph):
+	friends = graph.get_connections("me", "friends")
+	friend_list = [friend['name'] for friend in friends['data']]
+	return friend_list		
+
+def get_friends_ids(graph):
+	friends = graph.get_connections("me", "friends")
+	friend_list = [friend['id'] for friend in friends['data']]
+	return friend_list		
+
+def get_name_from_id(id,graph):
+	friends = graph.get_connections("me", "friends")
+	for friend in friends['data']:
+		if friend['id']==id:
+			return friend['name']		
+	return ""
+
+def get_id_from_name(name,graph):
+	friends = graph.get_connections("me", "friends")
+	for friend in friends['data']:
+		if friend['name']==name:
+			return friend['id']		
+	return ""
+
+
+if __name__=="__main__":
+	
+	graph = facebook.GraphAPI("CAAGkDEtWDG0BABCicEYEd1bbCkLLmZAJvc3nZB8UGJRuZBBZCAZC6x5qo4puo7jBPOAS1ZCY0tonfHf15iZAjjEQcISO0htWy6YrRM7XYx5tcEQoYCk3ZCGRMMVsvZAEuNtQ19sFdTEfGzJ4R1c6JjR9IcrBGLlBC814RMtTGEMsfhAPGuE2jms3hPjiMEuPRyv9CBbVOTkWH5wZDZD")
+	f=open("data.txt","w")
+	messages=graph.get_connections("me","inbox")
+	f.write(str(messages))
